@@ -18,7 +18,7 @@
         tools:layout="@layout/fragment_top" />
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView2"
+        android:id="@+id/bottomFragmentContainerView"
         android:name="com.cis436_project4.project4.BottomFragment"
         android:layout_width="295dp"
         android:layout_height="219dp"
@@ -32,7 +32,7 @@
         android:id="@+id/svPUUID"
         android:layout_width="366dp"
         android:layout_height="52dp"
-        app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView2"
+        app:layout_constraintBottom_toTopOf="@+id/bottomFragmentContainerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topFragmentContainerView" />
