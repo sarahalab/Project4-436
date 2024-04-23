@@ -18,7 +18,7 @@ class BottomFragment : Fragment(), MainActivity.DataListener {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_bottom, container, false)
-        tvGameName = view.findViewById(R.id.tvGameNAme)
+        tvGameName = view.findViewById(R.id.tvGameName)
         tvTagLine = view.findViewById(R.id.tvTagLine)
         tvPUUID = view.findViewById(R.id.tvPUUID)
         return view

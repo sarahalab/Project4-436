@@ -22,7 +22,7 @@ class TopFragment : Fragment(), MainActivity.DataListener {
     }
 
     override fun onProfileDataReceived(profile: SummonerProfile) {
-        val imageUrl = "https://ddragon.leagueoflegends.com/cdn/10.24.1/img/profileicon/${profile.profileIconId}.png"
+        val imageUrl = "https://ddragon.leagueoflegends.com/cdn/13.22.1/img/profileicon/${profile.profileIconId}.png"
         Glide.with(this).load(imageUrl).into(ivProfilePicture)
     }
 }

@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.SearchView
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,18 +22,38 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Retrofit to communicate with API for NA
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor(Interceptor { chain ->
+                val originalRequest = chain.request()
+                val originalUrl = originalRequest.url()
+                val url = originalUrl.newBuilder()
+                    .addQueryParameter("api_key", "RGAPI-edd848c3-ae2e-45bd-bff9-2c383f8e82d9")
+                    .build()
+                val requestBuilder = originalRequest.newBuilder().url(url)
+                val request = requestBuilder.build()
+                chain.proceed(request)
+            })
+            .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://na1.api.riotgames.com/")
+            .baseUrl("https://americas.api.riotgames.com/")
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         apiService = retrofit.create(APIInterface::class.java)
+        setupSearchView()
+    }
 
+    private fun setupSearchView() {
         val searchView: SearchView = findViewById(R.id.svPUUID)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                fetchUserData(query)
+                val parts = query.split("#")
+                if (parts.size == 2) {
+                    fetchUserData(parts[0], parts[1])
+                } else {
+                    Log.e("InputError", "Expected format: 'GameName#TagLine'")
+                }
                 return false
             }
 
@@ -41,12 +63,11 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun fetchUserData(username: String) {
-        apiService.getUserByName(username).enqueue(object : Callback<SummonerProfile> {
+    private fun fetchUserData(gameName: String, tagLine: String) {
+        apiService.getUserByGameNameAndTagLine(gameName, tagLine).enqueue(object : Callback<SummonerProfile> {
             override fun onResponse(call: Call<SummonerProfile>, response: Response<SummonerProfile>) {
                 if (response.isSuccessful) {
-                    val userProfile = response.body()
-                    userProfile?.let { profile ->
+                    response.body()?.let { profile ->
                         supportFragmentManager.fragments.forEach { fragment ->
                             (fragment as? DataListener)?.onProfileDataReceived(profile)
                         }

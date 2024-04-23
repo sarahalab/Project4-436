@@ -8,7 +8,7 @@
     tools:context=".BottomFragment">
 
     <TextView
-        android:id="@+id/tvGameNAme"
+        android:id="@+id/tvGameName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:text="PUUID"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/tvGameNAme"
+        app:layout_constraintBottom_toTopOf="@+id/tvGameName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
