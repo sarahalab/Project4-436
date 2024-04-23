@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         apiService = retrofit.create(APIInterface::class.java)
         setupSearchView()
+        fetchFreeChampionIds()
     }
 
     private fun setupSearchView() {
@@ -90,5 +91,33 @@ class MainActivity : AppCompatActivity() {
                 Log.e("API Call Failure", "Call failed with exception: ${t.message}")
             }
         })
+    }
+
+    private fun fetchFreeChampionIds() {
+        Log.d("API Call", "fetch champion rotations")
+        apiService.getChampionRotations().enqueue(object : Callback<ChampionRotation> {
+            override fun onResponse(call: Call<ChampionRotation>, response: Response<ChampionRotation>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { rotation ->
+                        Log.d("API Success", "Free Champions: ${rotation.freeChampionIds}")
+                        updateChampionUI(rotation.freeChampionIds)
+                    }
+                } else {
+                    Log.e("API Error", "Response Code: ${response.code()} ErrorBody: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<ChampionRotation>, t: Throwable) {
+                Log.e("API Call Failure", "Call failed: ${t.message}")
+            }
+        })
+    }
+    private fun updateChampionUI(ids: List<Int>) {
+        val fragment = supportFragmentManager.findFragmentById(R.id.bottomFragmentContainerView) as? BottomFragment
+        if (fragment != null && fragment.isAdded) {
+            fragment.updateChampionIds(ids)
+        } else {
+            Log.e("Fragment Error", "Fragment not found")
+        }
     }
 }

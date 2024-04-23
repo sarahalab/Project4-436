@@ -10,4 +10,6 @@ interface APIInterface {
         @Path("gameName") gameName: String,
         @Path("tagLine") tagLine: String
     ): Call<SummonerProfile>
+    @GET("https://na1.api.riotgames.com/lol/platform/v3/champion-rotations")
+    fun getChampionRotations(): Call<ChampionRotation>
 }
