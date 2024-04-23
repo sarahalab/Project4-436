@@ -22,6 +22,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.bottomFragmentContainerView, BottomFragment())
+                .commit()
+        }
+
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(Interceptor { chain ->
                 val originalRequest = chain.request()
@@ -67,12 +73,10 @@ class MainActivity : AppCompatActivity() {
         apiService.getUserByGameNameAndTagLine(gameName, tagLine).enqueue(object : Callback<SummonerProfile> {
             override fun onResponse(call: Call<SummonerProfile>, response: Response<SummonerProfile>) {
                 if (response.isSuccessful) {
+                    val rawJson = response.raw().toString() // Logging the raw response
+                    Log.d("API Success", "Raw JSON Response: $rawJson")
                     response.body()?.let { profile ->
                         Log.d("API Success", "Profile Data Received: ${profile}")
-                        Log.d("API Success", "Profile Icon ID Retrieved: ${profile.profileIconId}")
-                        Log.d("API Success", "Profile Game Name Retrieved: ${profile.GameName}")
-                        Log.d("API Success", "Profile Tag Line Retrieved: ${profile.tagLine}")
-                        Log.d("API Success", "Profile PUUID Retrieved: ${profile.puuid}")
                         supportFragmentManager.fragments.forEach { fragment ->
                             (fragment as? DataListener)?.onProfileDataReceived(profile)
                         }

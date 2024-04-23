@@ -1,6 +1,7 @@
 package com.cis436_project4.project4
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,12 +23,14 @@ class BottomFragment : Fragment(), MainActivity.DataListener {
         tvGameName = view.findViewById(R.id.tvGameName)
         tvTagLine = view.findViewById(R.id.tvTagLine)
         tvPUUID = view.findViewById(R.id.tvPUUID)
+        return view
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         lastReceivedProfile?.let {
             updateUI(it)
         }
-
-        return view
     }
 
     override fun onProfileDataReceived(profile: SummonerProfile) {
@@ -36,7 +39,7 @@ class BottomFragment : Fragment(), MainActivity.DataListener {
     }
 
     private fun updateUI(profile: SummonerProfile) {
-        tvGameName.text = profile.GameName
+        tvGameName.text = profile.gameName
         tvTagLine.text = profile.tagLine
         tvPUUID.text = profile.puuid
     }
