@@ -13,6 +13,7 @@ class BottomFragment : Fragment(), MainActivity.DataListener {
     private lateinit var tvGameName: TextView
     private lateinit var tvTagLine: TextView
     private lateinit var tvPUUID: TextView
+    private lateinit var tvSummonerLevel: TextView
     private var lastReceivedProfile: SummonerProfile? = null
 
     override fun onCreateView(
@@ -23,6 +24,7 @@ class BottomFragment : Fragment(), MainActivity.DataListener {
         tvGameName = view.findViewById(R.id.tvGameName)
         tvTagLine = view.findViewById(R.id.tvTagLine)
         tvPUUID = view.findViewById(R.id.tvPUUID)
+        tvSummonerLevel = view.findViewById(R.id.tvSummonerLevel)
         return view
     }
 
@@ -42,5 +44,6 @@ class BottomFragment : Fragment(), MainActivity.DataListener {
         tvGameName.text = profile.gameName
         tvTagLine.text = profile.tagLine
         tvPUUID.text = profile.puuid
+        tvSummonerLevel.text = profile.summonerLevel.toString()
     }
 }
