@@ -9,7 +9,6 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 
 class TopFragment : Fragment(), MainActivity.DataListener {
-
     private lateinit var ivProfilePicture: ImageView
 
     override fun onCreateView(
@@ -22,7 +21,7 @@ class TopFragment : Fragment(), MainActivity.DataListener {
     }
 
     override fun onProfileDataReceived(profile: SummonerProfile) {
-        val imageUrl = "https://ddragon.leagueoflegends.com/cdn/13.22.1/img/profileicon/${profile.profileIconId}.png"
+        val imageUrl = "https://ddragon.leagueoflegends.com/cdn/14.8.1/img/profileicon/${profile.profileIconId}.png"
         Glide.with(this).load(imageUrl).into(ivProfilePicture)
     }
 }

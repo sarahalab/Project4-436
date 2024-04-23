@@ -68,6 +68,11 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<SummonerProfile>, response: Response<SummonerProfile>) {
                 if (response.isSuccessful) {
                     response.body()?.let { profile ->
+                        Log.d("API Success", "Profile Data Received: ${profile}")
+                        Log.d("API Success", "Profile Icon ID Retrieved: ${profile.profileIconId}")
+                        Log.d("API Success", "Profile Game Name Retrieved: ${profile.GameName}")
+                        Log.d("API Success", "Profile Tag Line Retrieved: ${profile.tagLine}")
+                        Log.d("API Success", "Profile PUUID Retrieved: ${profile.puuid}")
                         supportFragmentManager.fragments.forEach { fragment ->
                             (fragment as? DataListener)?.onProfileDataReceived(profile)
                         }

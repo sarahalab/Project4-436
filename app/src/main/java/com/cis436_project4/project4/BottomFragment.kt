@@ -12,6 +12,7 @@ class BottomFragment : Fragment(), MainActivity.DataListener {
     private lateinit var tvGameName: TextView
     private lateinit var tvTagLine: TextView
     private lateinit var tvPUUID: TextView
+    private var lastReceivedProfile: SummonerProfile? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,12 +22,22 @@ class BottomFragment : Fragment(), MainActivity.DataListener {
         tvGameName = view.findViewById(R.id.tvGameName)
         tvTagLine = view.findViewById(R.id.tvTagLine)
         tvPUUID = view.findViewById(R.id.tvPUUID)
+
+        lastReceivedProfile?.let {
+            updateUI(it)
+        }
+
         return view
     }
 
     override fun onProfileDataReceived(profile: SummonerProfile) {
-        tvGameName.text = profile.name
-        tvTagLine.text = "Level: ${profile.summonerLevel}"
+        lastReceivedProfile = profile
+        updateUI(profile)
+    }
+
+    private fun updateUI(profile: SummonerProfile) {
+        tvGameName.text = profile.GameName
+        tvTagLine.text = profile.tagLine
         tvPUUID.text = profile.puuid
     }
 }
