@@ -9,8 +9,8 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/topFragmentContainerView"
         android:name="com.cis436_project4.project4.TopFragment"
-        android:layout_width="271dp"
-        android:layout_height="294dp"
+        android:layout_width="275dp"
+        android:layout_height="260dp"
         android:layout_marginTop="68dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,8 +20,8 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/bottomFragmentContainerView"
         android:name="com.cis436_project4.project4.BottomFragment"
-        android:layout_width="295dp"
-        android:layout_height="219dp"
+        android:layout_width="300dp"
+        android:layout_height="227dp"
         android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
