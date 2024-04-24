@@ -7,6 +7,13 @@
 - Andrew: 
     - 
 - Sara:
-    - 
+    - Initial commit
+    - Setup the 2 fragments
+    - Initial configuration for 2 widgets
+    - Fixed Textviews not displaying to MainAcitivity
+
 - Nader Baaghil:
-    - 
+    - API Configuration
+	- Got Textviews to retrieve respective information on players
+	- Retrieved all "Playable characters for the week" for display.
+    - Initial picture loading logic
