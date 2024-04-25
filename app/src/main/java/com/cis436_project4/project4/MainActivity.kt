@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                 val originalRequest = chain.request()
                 val originalUrl = originalRequest.url()
                 val url = originalUrl.newBuilder()
-                    .addQueryParameter("api_key", "RGAPI-edd848c3-ae2e-45bd-bff9-2c383f8e82d9")
+                    .addQueryParameter("api_key", "RGAPI-5d43ca8d-6af3-4df7-aedc-112621e191fc")
                     .build()
                 val requestBuilder = originalRequest.newBuilder().url(url)
                 val request = requestBuilder.build()
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String): Boolean {
                 val parts = query.split("#")
                 if (parts.size == 2) {
-                    fetchUserData(parts[0], parts[1])
+                    fetchUserPUUID(parts[0], parts[1])
                 } else {
                     Log.e("InputError", "Expected format: 'GameName#TagLine'")
                 }
@@ -70,14 +70,14 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun fetchUserData(gameName: String, tagLine: String) {
+    private fun fetchUserPUUID(gameName: String, tagLine: String) {
         apiService.getUserByGameNameAndTagLine(gameName, tagLine).enqueue(object : Callback<SummonerProfile> {
             override fun onResponse(call: Call<SummonerProfile>, response: Response<SummonerProfile>) {
                 if (response.isSuccessful) {
                     val rawJson = response.raw().toString() // Logging the raw response
                     Log.d("API Success", "Raw JSON Response: $rawJson")
                     response.body()?.let { profile ->
-                        Log.d("API Success", "Profile Data Received: ${profile}")
+                        Log.d("API Success", "Profile Data Received: $profile")
                         supportFragmentManager.fragments.forEach { fragment ->
                             (fragment as? DataListener)?.onProfileDataReceived(profile)
                         }
