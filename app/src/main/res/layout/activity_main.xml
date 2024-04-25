@@ -6,34 +6,39 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <SearchView
+        android:id="@+id/svPUUID"
+        android:layout_width="366dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </SearchView>
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/topFragmentContainerView"
         android:name="com.cis436_project4.project4.TopFragment"
-        android:layout_width="275dp"
-        android:layout_height="260dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="228dp"
+        android:layout_height="151dp"
+        android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/svPUUID"
         tools:layout="@layout/fragment_top" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/bottomFragmentContainerView"
         android:name="com.cis436_project4.project4.BottomFragment"
-        android:layout_width="332dp"
-        android:layout_height="290dp"
-        android:layout_marginBottom="60dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="365dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topFragmentContainerView"
         tools:layout="@layout/fragment_bottom" />
 
-    <SearchView
-        android:id="@+id/svPUUID"
-        android:layout_width="366dp"
-        android:layout_height="52dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomFragmentContainerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topFragmentContainerView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

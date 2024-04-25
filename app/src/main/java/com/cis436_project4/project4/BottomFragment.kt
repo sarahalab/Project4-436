@@ -1,5 +1,6 @@
 package com.cis436_project4.project4
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,7 +14,6 @@ class BottomFragment : Fragment(), MainActivity.DataListener {
     private lateinit var tvGameName: TextView
     private lateinit var tvTagLine: TextView
     private lateinit var tvPUUID: TextView
-    private lateinit var tvSummonerLevel: TextView
     private var lastReceivedProfile: SummonerProfile? = null
     private lateinit var tvFreeChampionIds: TextView
     private var championIds: List<Int>? = null
@@ -63,7 +63,6 @@ class BottomFragment : Fragment(), MainActivity.DataListener {
         tvGameName = view.findViewById(R.id.tvGameName)
         tvTagLine = view.findViewById(R.id.tvTagLine)
         tvPUUID = view.findViewById(R.id.tvPUUID)
-        tvSummonerLevel = view.findViewById(R.id.tvSummonerLevel)
         tvFreeChampionIds = view.findViewById(R.id.tvFreeChampionIds)
         return view
     }
@@ -94,10 +93,10 @@ class BottomFragment : Fragment(), MainActivity.DataListener {
         updateUI(profile)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateUI(profile: SummonerProfile) {
         tvGameName.text = profile.gameName
         tvTagLine.text = profile.tagLine
-        tvPUUID.text = profile.puuid
-        tvSummonerLevel.text = profile.summonerLevel.toString()
+        tvPUUID.text = "PUUID: ${profile.puuid}"
     }
 }
