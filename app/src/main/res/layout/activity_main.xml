@@ -17,28 +17,48 @@
 
     </SearchView>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/topFragmentContainerView"
-        android:name="com.cis436_project4.project4.TopFragment"
-        android:layout_width="228dp"
-        android:layout_height="151dp"
-        android:layout_marginTop="36dp"
+    <WebView
+        android:id="@+id/wvRiotPage"
+        android:layout_width="385dp"
+        android:layout_height="156dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/svPUUID"
-        tools:layout="@layout/fragment_top" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/bottomFragmentContainerView"
-        android:name="com.cis436_project4.project4.BottomFragment"
-        android:layout_width="365dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="405dp"
+        android:layout_height="363dp"
+        android:layout_marginTop="7dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topFragmentContainerView"
-        tools:layout="@layout/fragment_bottom" />
+        app:layout_constraintTop_toBottomOf="@+id/svPUUID">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/topFragmentContainerView"
+                android:name="com.cis436_project4.project4.TopFragment"
+                android:layout_width="match_parent"
+                android:layout_height="151dp"
+                android:layout_marginTop="36dp"
+                tools:layout="@layout/fragment_top" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/bottomFragmentContainerView"
+                android:name="com.cis436_project4.project4.BottomFragment"
+                android:layout_width="365dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                tools:layout="@layout/fragment_bottom" />
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,8 @@ package com.cis436_project4.project4
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.SearchView
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -15,12 +17,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : AppCompatActivity() {
 
     private lateinit var apiService: APIInterface
+    private lateinit var riotWebView: WebView
     interface DataListener {
         fun onProfileDataReceived(profile: SummonerProfile)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        riotWebView = findViewById(R.id.wvRiotPage)
+        riotWebView.webViewClient = WebViewClient()
+        riotWebView.loadUrl("https://developer.riotgames.com/")
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
@@ -33,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                 val originalRequest = chain.request()
                 val originalUrl = originalRequest.url()
                 val url = originalUrl.newBuilder()
-                    .addQueryParameter("api_key", "RGAPI-5d43ca8d-6af3-4df7-aedc-112621e191fc")
+                    .addQueryParameter("api_key", "RGAPI-0a8ca87a-6d46-445f-b806-a9a26554f780")
                     .build()
                 val requestBuilder = originalRequest.newBuilder().url(url)
                 val request = requestBuilder.build()
