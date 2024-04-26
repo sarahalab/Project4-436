@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var apiService: APIInterface
     private lateinit var riotWebView: WebView
+    val championModelArrayList = ArrayList<ChampionModel>()
     interface DataListener {
         fun onProfileDataReceived(profile: SummonerProfile)
     }
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                 val originalRequest = chain.request()
                 val originalUrl = originalRequest.url()
                 val url = originalUrl.newBuilder()
-                    .addQueryParameter("api_key", "RGAPI-0a8ca87a-6d46-445f-b806-a9a26554f780")
+                    .addQueryParameter("api_key", "RGAPI-ad9b2a59-6abe-48c4-b239-5859591efec7")
                     .build()
                 val requestBuilder = originalRequest.newBuilder().url(url)
                 val request = requestBuilder.build()
@@ -88,6 +89,8 @@ class MainActivity : AppCompatActivity() {
                         supportFragmentManager.fragments.forEach { fragment ->
                             (fragment as? DataListener)?.onProfileDataReceived(profile)
                         }
+                        Log.d("API Success", "calling fetchUserChampions, PUUID: ${profile.puuid}")
+                        fetchUserChampions(profile.puuid)
                     }
                 } else {
                     Log.e("API Error", "Response Code: ${response.code()} ErrorBody: ${response.errorBody()?.string()}")
@@ -95,6 +98,31 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<SummonerProfile>, t: Throwable) {
+                Log.e("API Call Failure", "Call failed with exception: ${t.message}")
+            }
+        })
+    }
+
+    private fun fetchUserChampions(puuid: String) {
+        apiService.getUserChampions(puuid).enqueue(object : Callback<List<ChampionModel>> {
+            override fun onResponse(call: Call<List<ChampionModel>>, response: Response<List<ChampionModel>>) {
+                if (response.isSuccessful) {
+                    val championList = response.body()
+                    championList?.forEach { champion ->
+                        val championName = BottomFragment.championIdsMap[champion.getChampionId()]
+                        champion.setChampionName(championName ?: "Aatrox")
+                        championModelArrayList.add(champion)
+                        //Log.d("API Success", "Champion: ${champion.getChampionName()} Level: ${champion.getChampionLevel()}")
+                        //Log.d("ChampionModel", "ChampionArray: ${championModelArrayList[0].getChampionName()} Level: ${championModelArrayList[0].getChampionLevel()}")
+                    }
+                    val bottomFragment = supportFragmentManager.findFragmentById(R.id.bottomFragmentContainerView) as? BottomFragment
+                    bottomFragment?.championCardAdapter?.notifyDataSetChanged()
+                } else {
+                    Log.e("API Error", "Response Code: ${response.code()} ErrorBody: ${response.errorBody()?.string()}")
+                }
+            }
+
+            override fun onFailure(call: Call<List<ChampionModel>>, t: Throwable) {
                 Log.e("API Call Failure", "Call failed with exception: ${t.message}")
             }
         })

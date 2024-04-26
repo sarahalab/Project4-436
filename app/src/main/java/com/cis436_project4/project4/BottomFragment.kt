@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class BottomFragment : Fragment(), MainActivity.DataListener {
 
@@ -17,6 +19,8 @@ class BottomFragment : Fragment(), MainActivity.DataListener {
     private var lastReceivedProfile: SummonerProfile? = null
     private lateinit var tvFreeChampionIds: TextView
     private var championIds: List<Int>? = null
+    private lateinit var rvChampions: RecyclerView
+    lateinit var championCardAdapter: ChampionCardAdapter
 
     companion object {
         val championIdsMap = mapOf(
@@ -64,6 +68,12 @@ class BottomFragment : Fragment(), MainActivity.DataListener {
         tvTagLine = view.findViewById(R.id.tvTagLine)
         tvPUUID = view.findViewById(R.id.tvPUUID)
         tvFreeChampionIds = view.findViewById(R.id.tvFreeChampionIds)
+
+        val mainActivity = activity as MainActivity
+        rvChampions = view.findViewById(R.id.rvChampions)
+        championCardAdapter = ChampionCardAdapter(requireContext(), mainActivity.championModelArrayList)
+        rvChampions.adapter = championCardAdapter
+        rvChampions.layoutManager = LinearLayoutManager(requireContext())
         return view
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

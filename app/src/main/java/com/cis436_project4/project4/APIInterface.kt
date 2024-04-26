@@ -12,4 +12,7 @@ interface APIInterface {
     ): Call<SummonerProfile>
     @GET("https://na1.api.riotgames.com/lol/platform/v3/champion-rotations")
     fun getChampionRotations(): Call<ChampionRotation>
+
+    @GET("https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/{PUUID}")
+    fun getUserChampions(@Path("PUUID") puuid: String): Call<List<ChampionModel>>
 }
